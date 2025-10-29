@@ -13,15 +13,13 @@ public class VoteOption {
     private String caption;
     @ManyToOne
     private Poll poll;
-    //Removeable
-    private int voteCount;
-
+    private int presentationOrder;
     public VoteOption() {}
 
-    public VoteOption(String caption, Poll poll, int voteCount) {
+    public VoteOption(String caption, Poll poll,  int presentationOrder) {
         this.caption = caption;
         this.poll = poll;
-        this.voteCount = 0;
+        this.presentationOrder = presentationOrder;
     }
 
 
@@ -45,15 +43,11 @@ public class VoteOption {
     public void setPoll(Poll poll) {
         this.poll = poll;
     }
-    //VOTECOUNT IF WANT DELETE FROM HERE
-    public int getVoteCount() {
-        return voteCount;
+    public int getPresentationOrder() {
+        return presentationOrder;
     }
-    public void setVoteCount(int voteCount) {
-        this.voteCount = voteCount;
-    }
-    public void incrementVoteCount() {
-        this.voteCount++;
+    public void setPresentationOrder(int presentationOrder) {
+        this.presentationOrder = presentationOrder;
     }
     //-------------------------------------------------//
 }
