@@ -1,0 +1,1 @@
+import{f as e,a as n}from"../chunks/C0n6-zu-.js";import"../chunks/BNZ2-fdY.js";import{n as o}from"../chunks/BTNZY2_E.js";var t=e("//Create new poll from admin <section><h1>Create new poll from admin</h1></section>",1);function i(r){o();var a=t();o(),n(r,a)}export{i as component};

@@ -1,0 +1,1 @@
+import{f as e,a}from"../chunks/C0n6-zu-.js";import"../chunks/BNZ2-fdY.js";import{n as o}from"../chunks/BTNZY2_E.js";var n=e("//PAge for patients to vote for poll <section><h1>PAge for patients to vote for poll</h1></section>",1);function i(t){o();var r=n();o(),a(t,r)}export{i as component};

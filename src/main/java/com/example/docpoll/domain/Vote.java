@@ -13,15 +13,26 @@ public class Vote {
     private UUID voteId;
 
     @ManyToOne
+    @JoinColumn(name = "vote_option_id")
     private VoteOption chosenOption;
 
     @ManyToOne
+    @JoinColumn(name = "username")
     private User user;
+
+    @ManyToOne
+    @JoinColumn(name = "poll_id")
+    private Poll poll;
 
     public Vote(){}
     public Vote(VoteOption chosenOption, User user) {
         this.chosenOption = chosenOption;
         this.user = user;
+        if(chosenOption != null){
+            this.poll = chosenOption.getPoll();
+        } else{
+            this.poll = null;
+        }
     }
 
 
@@ -38,12 +49,21 @@ public class Vote {
     }
     public void setChosenOption(VoteOption chosenOption) {
         this.chosenOption = chosenOption;
+        if(chosenOption != null){
+            this.poll = chosenOption.getPoll();
+        }
     }
     public User getUser() {
         return user;
     }
     public void setUser(User user) {
         this.user = user;
+    }
+    public Poll getPoll() {
+        return poll;
+    }
+    public void setPoll(Poll poll) {
+        this.poll = poll;
     }
     //------------------------------//
 }

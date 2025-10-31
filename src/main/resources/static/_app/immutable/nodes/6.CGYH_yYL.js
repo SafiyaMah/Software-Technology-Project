@@ -1,0 +1,1 @@
+import{f as i,a as n}from"../chunks/C0n6-zu-.js";import"../chunks/BNZ2-fdY.js";import{n as e}from"../chunks/BTNZY2_E.js";var t=i("//Page for user info if its needed ig <section><h1>Page for user info if its needed ig</h1></section>",1);function m(o){e();var r=t();e(),n(o,r)}export{m as component};

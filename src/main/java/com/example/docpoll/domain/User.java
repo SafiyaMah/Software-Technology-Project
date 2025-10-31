@@ -1,5 +1,6 @@
 package com.example.docpoll.domain;
 
+import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
@@ -8,9 +9,10 @@ import jakarta.persistence.Table;
 @Table(name = "users")
 public class User {
     @Id
+    @Column(length = 32)
     private String username;
 
-    //IDK is a shared object for admin and patient so the normal "votedList" and "createdList" must be handled ig
+    //Most user related stuff handled in keycloak so i keep lean, can still add a display name etc.
 
     public User(){}
     public User(String username){

@@ -1,1 +1,1 @@
-rootProject.name = "docpoll"
+rootProject.name = "Software-Technology-Project"

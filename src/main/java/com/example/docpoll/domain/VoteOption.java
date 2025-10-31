@@ -10,16 +10,21 @@ public class VoteOption {
     @Id
     @GeneratedValue
     private UUID voteOptionId;
+
+    @Column(nullable = false)
     private String caption;
+
     @ManyToOne
+    @JoinColumn(name = "poll_id")
     private Poll poll;
+
+    @Column(nullable = false)
     private int presentationOrder;
     public VoteOption() {}
 
-    public VoteOption(String caption, Poll poll,  int presentationOrder) {
+    //Poll adn presentationOrder gets assigned when addPollOption is called
+    public VoteOption(String caption) {
         this.caption = caption;
-        this.poll = poll;
-        this.presentationOrder = presentationOrder;
     }
 
 
