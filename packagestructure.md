@@ -4,7 +4,7 @@ Current description of the structure of the project
 [subject to change]
 
 ```text
-com.example.docpoll
+com.example.medipoll
 ├─ DocpollApplication
 ├─ admin
 │  ├─ api
