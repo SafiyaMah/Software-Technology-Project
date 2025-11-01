@@ -1,11 +1,13 @@
 package com.example.docpoll.admin.dto;
 
 import java.time.Instant;
+import java.util.UUID;
 
 public record PollAdminView(
-        String id,
+        UUID pollId,
         String question,
-        Instant createdAt
+        Instant createdTime,
+        boolean completed
         //TODO: add/change parameters
 ) {
 }

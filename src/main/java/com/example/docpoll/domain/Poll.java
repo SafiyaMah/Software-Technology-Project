@@ -11,7 +11,7 @@ import java.util.UUID;
 @Table(name = "polls")
 public class Poll {
     @Id
-    @GeneratedValue
+    @GeneratedValue(strategy = GenerationType.UUID)
     private UUID pollId;
 
     @Column(nullable = false)

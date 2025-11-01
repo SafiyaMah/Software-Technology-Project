@@ -6,6 +6,7 @@ import com.example.docpoll.admin.service.AdminPollService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
 import java.util.UUID;
 
 @RestController
@@ -33,5 +34,10 @@ public class AdminPollController {
     // KEYCLOAK @PreAuthorize("hasRole('ADMIN')")
     public void closePoll(@PathVariable("pollId") UUID pollId){
         adminPollService.closePoll(pollId);
+    }
+
+    @GetMapping
+    public List<PollAdminView> listPolls(){
+        return adminPollService.listPolls();
     }
 }

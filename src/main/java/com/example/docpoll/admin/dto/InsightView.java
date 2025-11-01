@@ -6,7 +6,7 @@ import java.util.UUID;
 //TODO: tuning/can maybe decide to extend for user-specific details/create a dto for it
 public record InsightView(
         UUID pollId,
-        String title,
+        String question,
         List<QuestionInsight> questions
 ) {
     public record QuestionInsight(
