@@ -11,12 +11,12 @@ public record InsightView(
 ) {
     public record QuestionInsight(
             UUID questionId,
-            String caption,
-            List<OptionCount> options
+            String question,
+            List<OptionCount> voteOptions
     ){}
     public record OptionCount(
-            UUID optionId,
-            String label,
+            UUID voteOptionId,
+            String caption,
             int count
     ){}
 }

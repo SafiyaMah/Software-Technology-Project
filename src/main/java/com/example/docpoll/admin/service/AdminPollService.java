@@ -10,7 +10,7 @@ import java.util.UUID;
 public interface AdminPollService {
     PollAdminView createPoll();//TODO
     PollAdminView getPoll();//TODO
-    List<PollAdminView> listPolls();//TODO
-    void closePoll(UUID pollId);//TODO
+    List<PollAdminView> listPolls();
+    void closePoll(UUID pollId);
     InsightView getInsights(UUID pollId);//TODO
 }
