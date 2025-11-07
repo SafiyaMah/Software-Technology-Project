@@ -20,7 +20,7 @@ public class Poll {
     @OneToMany(mappedBy = "poll", cascade = CascadeType.ALL)
     private List<VoteOption> voteOptionList = new ArrayList<>();
 
-    @ManyToOne
+    @ManyToOne(cascade = CascadeType.PERSIST) // to auto saves the user when poll is saved
     @JoinColumn(name = "creator")
     private User creator;
 

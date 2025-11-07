@@ -1,10 +1,10 @@
-package com.example.docpoll.admin.dto;
+package com.example.docpoll.patient.dto;
 
 import java.time.Instant;
 import java.util.List;
 import java.util.UUID;
 
-public record PollAdminView(
+public record PollPatientView(
         UUID pollId,
         String question,
         Instant createdTime,
