@@ -18,11 +18,15 @@ public class User {
     @Column(length = 32, nullable = false, unique = true)
     private String username;
 
+    @Column(nullable = false)
+    private String role; // "PATIENT" or "ADMIN"
+
     //Most user related stuff handled in keycloak so i keep lean, can still add a display name etc.
 
     public User(){}
-    public User(String username){
+    public User(String username, String role){
         this.username = username;
+        this.role = role;
     }
 
     //GETTERS/SETTERS
