@@ -1,5 +1,6 @@
 package com.example.docpoll.admin.api;
 
+import com.example.docpoll.admin.dto.CreatePollRequest;
 import com.example.docpoll.admin.dto.InsightView;
 import com.example.docpoll.admin.dto.PollAdminView;
 import com.example.docpoll.admin.service.AdminPollService;
@@ -19,9 +20,8 @@ public class AdminPollController {
 
     @PostMapping
     // KEYCLOAK @PreAuthorize("hasRole('ADMIN')")
-    public PollAdminView createPoll(){
-        //TODO
-        return adminPollService.createPoll();
+    public PollAdminView createPoll(@RequestBody CreatePollRequest request) {
+        return adminPollService.createPoll(request);
     }
 
     @GetMapping("/{pollId}/insights")
@@ -39,5 +39,10 @@ public class AdminPollController {
     @GetMapping
     public List<PollAdminView> listPolls(){
         return adminPollService.listPolls();
+    }
+
+    @GetMapping("/{pollId}")
+    public PollAdminView getPoll(@PathVariable UUID pollId) {
+        return adminPollService.getPoll(pollId);
     }
 }

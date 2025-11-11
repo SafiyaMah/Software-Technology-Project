@@ -1,11 +1,12 @@
 package com.example.docpoll.admin.service;
 
+import com.example.docpoll.admin.dto.CreatePollRequest;
 import com.example.docpoll.admin.dto.InsightView;
 import com.example.docpoll.admin.dto.PollAdminView;
 import com.example.docpoll.domain.Poll;
+import com.example.docpoll.domain.VoteOption;
 import com.example.docpoll.repository.PollRepository;
 import com.example.docpoll.repository.VoteReporistory;
-import lombok.AllArgsConstructor;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
@@ -20,27 +21,50 @@ public class AdminPollServiceImp implements AdminPollService {
     private final VoteReporistory voteRepository;
 
     @Override
-    public PollAdminView createPoll() {
-        //TODO
-        return null;
+    public PollAdminView createPoll(CreatePollRequest request) {
+        if (request == null) {
+            throw new IllegalArgumentException("Request is required");
+        }
+        if (request.question() == null || request.question().isBlank()) {
+            throw new IllegalArgumentException("Question is required");
+        }
+        if (request.options() == null || request.options().size() < 2) {
+            throw new IllegalArgumentException("At least two options are required");
+        }
+
+        Poll poll = new Poll();
+        poll.setQuestion(request.question().trim());
+
+        request.options().forEach(opt -> {
+            if (opt != null && !opt.isBlank()) {
+                VoteOption option = new VoteOption();
+                option.setCaption(opt.trim());
+                poll.addVoteOption(option);
+            }
+        });
+
+        if (poll.getVoteOptionList().size() < 2) {
+            throw new IllegalArgumentException("At least two non-empty options are required");
+        }
+
+        Poll saved = pollRepository.save(poll);
+
+        return toAdminView(saved);
     }
 
     @Override
-    public PollAdminView getPoll() {
-        //TODO
-        return null;
+    public PollAdminView getPoll(UUID pollId) {
+        Poll poll =  pollRepository.findById(pollId)
+        .orElseThrow(() -> new IllegalArgumentException("Poll not found; " + pollId));
+
+        return toAdminView(poll);
     }
 
     @Override
     public List<PollAdminView> listPolls() {
         return pollRepository.findAll(Sort.by(Sort.Direction.DESC, "createdTime"))
                 .stream()
-                .map(poll -> new PollAdminView(
-                        poll.getPollId(),
-                        poll.getQuestion(),
-                        poll.getCreatedTime(),
-                        poll.isCompleted()
-                ))
+                .map(this::toAdminView)
                 .toList();
     }
 
@@ -76,6 +100,24 @@ public class AdminPollServiceImp implements AdminPollService {
                 poll.getPollId(),
                 poll.getQuestion(),
                 List.of(question)
+        );
+    }
+
+    // Helper to convert entity to DTO
+    private PollAdminView toAdminView(Poll poll) {
+        List<PollAdminView.OptionView> optionViews = poll.getVoteOptionList().stream()
+                .map(o -> new PollAdminView.OptionView(
+                        o.getVoteOptionId(),
+                        o.getCaption()
+                ))
+                .toList();
+
+        return new PollAdminView(
+                poll.getPollId(),
+                poll.getQuestion(),
+                poll.getCreatedTime(),
+                poll.isCompleted(),
+                optionViews
         );
     }
 }
