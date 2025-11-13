@@ -28,6 +28,8 @@ dependencies {
     annotationProcessor("org.projectlombok:lombok:1.18.34")
     implementation("org.springframework.boot:spring-boot-starter-data-jpa")
     implementation("org.springframework.boot:spring-boot-starter-web")
+    implementation("org.springframework.boot:spring-boot-starter-security")
+    implementation("org.springframework.boot:spring-boot-starter-oauth2-resource-server")
     runtimeOnly("com.h2database:h2:2.3.232")
     testRuntimeOnly("com.h2database:h2:2.3.232")
     testImplementation("org.hibernate.orm:hibernate-core:7.1.1.Final")

@@ -20,7 +20,7 @@ public class DocpollApplication {
 		SpringApplication.run(DocpollApplication.class, args);
 	}
 
-    @Bean
+    /*@Bean
     CommandLineRunner seed(
             PollRepository polls,
             VoteOptionRepository options,
@@ -64,5 +64,6 @@ public class DocpollApplication {
             votes.save(v2);
             votes.save(v3);
         };
-    }
+        return null;
+    }*/
 }
