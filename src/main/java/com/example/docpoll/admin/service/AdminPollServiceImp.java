@@ -4,6 +4,7 @@ import com.example.docpoll.admin.dto.CreatePollRequest;
 import com.example.docpoll.admin.dto.InsightView;
 import com.example.docpoll.admin.dto.PollAdminView;
 import com.example.docpoll.domain.Poll;
+import com.example.docpoll.domain.User;
 import com.example.docpoll.domain.VoteOption;
 import com.example.docpoll.repository.PollRepository;
 import com.example.docpoll.repository.VoteReporistory;
@@ -21,7 +22,7 @@ public class AdminPollServiceImp implements AdminPollService {
     private final VoteReporistory voteRepository;
 
     @Override
-    public PollAdminView createPoll(CreatePollRequest request) {
+    public PollAdminView createPoll(CreatePollRequest request, User adminUser) {
         if (request == null) {
             throw new IllegalArgumentException("Request is required");
         }
@@ -34,6 +35,8 @@ public class AdminPollServiceImp implements AdminPollService {
 
         Poll poll = new Poll();
         poll.setQuestion(request.question().trim());
+
+        poll.setCreator(adminUser); // has id + username
 
         request.options().forEach(opt -> {
             if (opt != null && !opt.isBlank()) {

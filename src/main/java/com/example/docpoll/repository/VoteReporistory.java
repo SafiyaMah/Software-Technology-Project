@@ -9,4 +9,5 @@ import java.util.UUID;
 
 public interface VoteReporistory extends JpaRepository<Vote, UUID> {
     long countByPollAndChosenOption(Poll poll, VoteOption voteOption);
+    boolean existsByPoll_PollIdAndUser_UserId(UUID pollId, UUID userId);
 }

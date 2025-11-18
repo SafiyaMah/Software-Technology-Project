@@ -17,7 +17,7 @@ public class Vote {
     private VoteOption chosenOption;
 
     @ManyToOne
-    @JoinColumn(name = "username")
+    @JoinColumn(name = "user_id")
     private User user;
 
     @ManyToOne

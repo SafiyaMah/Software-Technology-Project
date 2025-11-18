@@ -1,10 +1,12 @@
 package com.example.docpoll.patient.service;
 
 import com.example.docpoll.domain.Poll;
+import com.example.docpoll.domain.User;
 import com.example.docpoll.domain.Vote;
 import com.example.docpoll.domain.VoteOption;
 import com.example.docpoll.patient.dto.PollPatientView;
 import com.example.docpoll.repository.PollRepository;
+import com.example.docpoll.repository.UserRepository;
 import com.example.docpoll.repository.VoteOptionRepository;
 import com.example.docpoll.repository.VoteReporistory;
 
@@ -24,10 +26,10 @@ public class PatientPollServiceImp implements PatientPollService {
         private final PollRepository pollRepository;
         private final VoteOptionRepository voteOptionRepository;
         private final VoteReporistory voteReporistory;
+        private final UserRepository userRepository;
 
         @Override
         public List<PollPatientView> listPolls() {
-                // TODO filter by public/private polls
                 return pollRepository.findAll(Sort.by(Sort.Direction.DESC, "createdTime"))
                 .stream()
                 .map(poll -> {
@@ -50,7 +52,7 @@ public class PatientPollServiceImp implements PatientPollService {
         }
 
         @Override
-        public PollPatientView castVote(UUID pollId, UUID voteOptionId) {
+        public PollPatientView castVote(UUID pollId, UUID voteOptionId, UUID userId, String username) {
         // Get poll
         Poll poll = pollRepository.findById(pollId).orElseThrow(() -> new IllegalArgumentException("Poll not found"));
         // Get option
@@ -60,13 +62,18 @@ public class PatientPollServiceImp implements PatientPollService {
                 throw new IllegalArgumentException("Vote option does not belong to this poll");
         }
 
-        // TODO
-        // - get current user from Keycloak token
-        // - check this user hasn't already voted in this poll
+        // Check if user has already voted in this poll
+        boolean alreadyVoted = voteReporistory.existsByPoll_PollIdAndUser_UserId(pollId, userId);
+        if (alreadyVoted) {
+                throw new IllegalStateException("User has already voted in this poll");
+        }
+
+        User voter = userRepository.findById(userId).orElseGet(() -> userRepository.save(new User(userId, username, "PATIENT")));
+        // Create and save vote
         Vote vote = new Vote();
+        vote.setUser(voter);
         vote.setPoll(poll);
         vote.setChosenOption(voteOption);
-        // vote.setUser(currentUser); // when Keycloak is wired
         voteReporistory.save(vote);
 
         // Return PollPatientView for this poll (to mark completed=true for this patient)
