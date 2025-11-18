@@ -13,6 +13,7 @@ import lombok.RequiredArgsConstructor;
 import java.util.List;
 import java.util.UUID;
 
+import org.springframework.cache.annotation.CacheEvict;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
@@ -50,6 +51,7 @@ public class PatientPollServiceImp implements PatientPollService {
         }
 
         @Override
+        @CacheEvict(value = "poll-insights", key = "#pollId")
         public PollPatientView castVote(UUID pollId, UUID voteOptionId) {
         // Get poll
         Poll poll = pollRepository.findById(pollId).orElseThrow(() -> new IllegalArgumentException("Poll not found"));

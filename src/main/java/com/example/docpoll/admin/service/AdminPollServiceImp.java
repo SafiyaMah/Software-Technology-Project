@@ -8,6 +8,7 @@ import com.example.docpoll.domain.VoteOption;
 import com.example.docpoll.repository.PollRepository;
 import com.example.docpoll.repository.VoteReporistory;
 import lombok.RequiredArgsConstructor;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
@@ -77,6 +78,7 @@ public class AdminPollServiceImp implements AdminPollService {
     }
 
     @Override
+    @Cacheable(value = "poll-insights", key = "#pollId")
     public InsightView getInsights(UUID pollId) {
         //Just a quick implementation based on my dto example, its like an onion with optionCount being the inner layer
         Poll poll = pollRepository.findById(pollId)

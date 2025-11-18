@@ -33,6 +33,8 @@ dependencies {
     runtimeOnly("com.h2database:h2:2.3.232")
     testRuntimeOnly("com.h2database:h2:2.3.232")
     testImplementation("org.hibernate.orm:hibernate-core:7.1.1.Final")
+    implementation("org.springframework.boot:spring-boot-starter-cache")
+    implementation("org.springframework.boot:spring-boot-starter-data-redis")
 }
 
 tasks.withType<Test> {
