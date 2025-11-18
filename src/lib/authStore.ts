@@ -8,11 +8,9 @@ export const isAuthenticated = writable(false);
 
 export const tokenParsed = writable<any>(null);
 
-
 export const roles = derived(tokenParsed, ($t) => $t?.realm_access?.roles ?? []);
 
 export const isStaff = derived(roles, ($r) => $r.includes('staff'));
-// export const isAdmin = derived(roles, ($r) => $r.includes('admin'));
 export const isUser = derived(roles, ($r) => $r.includes('user'));
 
 
