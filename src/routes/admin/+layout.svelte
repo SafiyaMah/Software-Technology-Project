@@ -23,7 +23,7 @@
     <section class="admin-page">
         <h1>Access denied</h1>
         <p class="subtitle">
-            You do not have access to this page. Please contact an administrator if you
+            Hi {$username}! You do not have access to this page. Please contact an administrator if you
             think this is a mistake.
         </p>
     </section>
